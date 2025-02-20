@@ -7,33 +7,57 @@ package arithmetic;
 
 import java.util.Scanner;
 
-/** This class takes String input plus,minus,divide and times
- * from user and execute the arithmetic operation
- * change the code to use enum instead String and mention the advantage of enum.
+/**
+ * This class takes String input plus,minus,divide and times from user and
+ * execute the arithmetic operation change the code to use enum instead String
+ * and mention the advantage of enum.
+ *
  * @author sivagamasrinivasan
- * 
+ *
  */
-public class ArithmeticBase 
-{
- public double x,y;
-    double calculate(double x, double y) 
-        {
-        Scanner sc =new Scanner(System.in);
-        System.out.println("Enter arithmetic operation to Perform: ");
-        String s= sc.next();
-        switch (s.toUpperCase()) 
-        {
-            case "PLUS":
+public class ArithmeticBase {
+
+    enum Operation {
+        PLUS {
+            public double calculate(double x, double y) {
                 return x + y;
-            case "MINUS":
+            }
+
+            public String toString() {
+                return "Addition (+)";
+            }
+        },
+        MINUS {
+            public double calculate(double x, double y) {
                 return x - y;
-            case "TIMES":
+            }
+
+            public String toString() {
+                return "Subtraction (-)";
+            }
+        },
+        TIMES {
+            public double calculate(double x, double y) {
                 return x * y;
-            case "DIVIDE":
+            }
+
+            public String toString() {
+                return "Multiplication (*)";
+            }
+        },
+        DIVIDE {
+            public double calculate(double x, double y) {
+                if (y == 0) {
+                    throw new ArithmeticException("Cannot divide by zero");
+                }
                 return x / y;
-            default:
-                throw new AssertionError("Unknown operations " + this);
-        }
+            }
+
+            public String toString() {
+                return "Division (/)";
+            }
+        };
+
+        public abstract double calculate(double x, double y);
     }
-   
 }
