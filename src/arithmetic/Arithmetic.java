@@ -16,35 +16,23 @@ import static java.time.Clock.system;
  *
  */
 public class Arithmetic {
-
     public static void main(String[] args) {
-        ArithmeticBase calculator = new ArithmeticBase();
         Scanner in = new Scanner(System.in);
-
-        System.out.println("Available operations:");
-        for (ArithmeticBase.Operation op : ArithmeticBase.Operation.values()) {
-            System.out.println("- " + op);
-        }
 
         System.out.println("Enter first number:");
         double n = in.nextDouble();
         System.out.println("Enter second number:");
         double m = in.nextDouble();
 
-        ArithmeticBase.Operation selectedOperation = null;
-        while (selectedOperation == null) {
-            System.out.println("Enter operation (e.g., PLUS, MINUS, TIMES, DIVIDE):");
-            String opName = in.next().toUpperCase();
-
+        System.out.println("Results for all operations:");
+        for (ArithmeticBase.Operation op : ArithmeticBase.Operation.values()) {
             try {
-                selectedOperation = ArithmeticBase.Operation.valueOf(opName); // Convert to enum
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid operation. Please choose from the list.");
+                double result = op.calculate(n, m);
+                System.out.println(op + " result: " + result);
+            } catch (ArithmeticException e) {
+                System.out.println(op + " error: " + e.getMessage());
             }
         }
-
-        double result = selectedOperation.calculate(n, m);
-        System.out.println("Result: " + result);
 
         in.close();
     }
